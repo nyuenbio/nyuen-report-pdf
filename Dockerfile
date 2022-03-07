@@ -1,5 +1,4 @@
 FROM wuxue107/screenshot-api-base:1.1.0
-# FROM node:12
 
 WORKDIR /app
 
@@ -19,5 +18,6 @@ RUN npm install --registry=https://registry.npm.taobao.org
 EXPOSE 7001
 
 VOLUME /app/public
+VOLUME /root/logs/my-midway-project
 
 CMD ["npm", "run", "online"]
