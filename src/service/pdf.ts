@@ -47,7 +47,14 @@ export class PDFService {
         });
         const page = await browser.newPage();
         await page.goto(url, { waitUntil: 'networkidle2' });
-        await sleep(10000);
+        // // 等待10秒，再生成pdf
+        // await sleep(10000);
+        // 换一个策略，使用定时器，判断渲染成功再打印，并且记录一个时间，超出时间也判断失败
+        const waitRes = await page
+          .waitForFunction('window.canGeneratePdf === true')
+          .catch(err => err);
+        if (waitRes !== true) return reject(waitRes);
+        // 等待成功，执行生成pdf的逻辑
         await page.pdf({
           path: saveFullPath,
           format: 'a4',
