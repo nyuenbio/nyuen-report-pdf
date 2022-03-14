@@ -40,7 +40,7 @@ export class PDFController {
       })
       .catch((message: string) => {
         this.logger.error(
-          `pdf生成失败，目标地址：${destination}，失败原因：${message}`
+          `pdf生成失败，url：${url}，目标地址：${destination}，失败原因：${message}`
         );
         response = ResponseFactory.buildFail(message);
       });
